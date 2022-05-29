@@ -1,6 +1,21 @@
-# Microsoft Endpoint Manager
+# Microsoft Endpoint Manager Apps
 
-All Microsoft Endpoint Manager related stuff
+All Microsoft Endpoint Manager related apps
+
+## Structure
+
+- **Icon**
+  This directory will contain the App icons. ```icon.xxx``` is the default, that our automated deployment process pickup.
+- **Info**
+  This directory will contain the plain text files that our automated deployment process pickup.
+  Please note: ```Description.txt``` is required!
+- **Output**
+  This directory will contain the ```.intunewin``` file that is used upload to Intune, by our automated deployment process (or manual by you).
+- **Source**
+  This directory will contain all the necessary sources that the ```intunewinapputil.exe``` which is called by our wrapper ```.\create.ps1```.
+  ```intunewinapputil.exe``` is not included in this repository.
+- **create.ps1**
+  ```.\create.ps1``` is our wrapper, called by our automated deployment process.
 
 ## Found a bug or Issue?
 

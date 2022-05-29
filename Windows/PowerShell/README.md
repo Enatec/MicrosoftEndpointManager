@@ -1,6 +1,6 @@
-# Microsoft Endpoint Manager
+# Microsoft Endpoint Manager scripts
 
-All Microsoft Endpoint Manager related stuff
+All Microsoft Endpoint Manager related scripts
 
 ## Found a bug or Issue?
 
