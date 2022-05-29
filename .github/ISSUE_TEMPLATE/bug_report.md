@@ -8,8 +8,8 @@ assignees: ""
 
 **Describe the bug**
 
-<!--- If describing a bug, tell us what happens instead of the expected behavior -->
-<!--- If suggesting a change/improvement, explain the difference from current behavior -->
+<!--- If describing a bug, tell us what happens instead of the expected behaviour -->
+<!--- If suggesting a change/improvement, explain the difference from current behaviour -->
 
 A clear and concise description of what the bug is.
 
@@ -18,14 +18,14 @@ A clear and concise description of what the bug is.
 <!--- Provide a link to a live example, or an unambiguous set of steps to -->
 <!--- reproduce this bug. Include code to reproduce, if relevant -->
 
-Steps to reproduce the behavior:
+Steps to reproduce the behaviour:
 
 1.
 2.
 3.
 4.
 
-**Expected behavior**
+**Expected behaviour**
 
 <!--- If you're describing a bug, tell us what should happen -->
 <!--- If you're suggesting a change/improvement, tell us how it should work -->
