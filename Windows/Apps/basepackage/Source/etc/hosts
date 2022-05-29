@@ -20,9 +20,3 @@ ff02::2           ip6-allrouters
 ff02::3           ip6-allhosts
 
 0.0.0.0           0.0.0.0
-
-# VIER
-172.16.24.1       AD-SRV-01 AD-SRV-01.vier.group
-172.16.24.2       AD-SRV-02 AD-SRV-02.vier.group
-172.19.24.1       AD-SRV-03 AD-SRV-03.vier.group
-172.25.24.1       AD-SRV-04 AD-SRV-04.vier.group
