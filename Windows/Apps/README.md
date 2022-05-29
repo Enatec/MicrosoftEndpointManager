@@ -1,6 +1,6 @@
-# Microsoft Endpoint Manager
+# Microsoft Endpoint Manager Apps
 
-All Microsoft Endpoint Manager related stuff
+All Microsoft Endpoint Manager related apps
 
 ## Found a bug or Issue?
 
