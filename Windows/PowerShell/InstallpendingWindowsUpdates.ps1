@@ -30,16 +30,24 @@ param
    [version]
    $PSWindowsUpdateVersion = '2.2.0.3'
 )
-Import-Module PowerShellGet
-
-Import-Module PackageManagement
-
 
 begin
 {
    #region Global
    $SCT = 'SilentlyContinue'
    #endregion Global
+   
+   #region ARM64
+   # If we are running as a 32-bit process on an x64 system, re-launch as a 64-bit process
+   if ("$env:PROCESSOR_ARCHITEW6432" -ne 'ARM64')
+   {
+       if (Test-Path -Path ('{0}\SysNative\WindowsPowerShell\v1.0\powershell.exe' -f $env:WINDIR) -ErrorAction $SCT -WarningAction $SCT)
+       {
+           & "$($env:WINDIR)\SysNative\WindowsPowerShell\v1.0\powershell.exe" -ExecutionPolicy bypass -NoProfile -File $PSCommandPath
+           Exit $lastexitcode
+       }
+   }
+   #endregion ARM64
    
    #region NuGetPackageProvider
    $paramGetPackageProvider = @{
