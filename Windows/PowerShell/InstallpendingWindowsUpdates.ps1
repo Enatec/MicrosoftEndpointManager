@@ -28,8 +28,12 @@ param
               ValueFromPipelineByPropertyName = $true)]
    [ValidateNotNullOrEmpty()]
    [version]
-   $PSWindowsUpdateVersion = 2.2.0.3
+   $PSWindowsUpdateVersion = '2.2.0.3'
 )
+Import-Module PowerShellGet
+
+Import-Module PackageManagement
+
 
 begin
 {
@@ -38,34 +42,80 @@ begin
    #endregion Global
    
    #region NuGetPackageProvider
-   if (-not (Get-PackageProvider -Name NuGet -ErrorAction $SCT -WarningAction $SCT))
+   $paramGetPackageProvider = @{
+      Name          = 'NuGet'
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   if (-not (Get-PackageProvider @paramGetPackageProvider))
    {
-      $null = Install-PackageProvider -Name NuGet -Force
+      $paramInstallPackageProvider = @{
+         Name          = 'NuGet'
+         Force         = $true
+         ErrorAction   = $SCT
+         WarningAction = $SCT
+      }
+      $null = (Install-PackageProvider @paramInstallPackageProvider)
    }
    #endregion NuGetPackageProvider
    
    #region MakePSGalleryTrusted
-   if (Get-PSRepository -Name PSGallery | Where-Object -FilterScript {
+   $paramGetPSRepository = @{
+      Name          = 'PSGallery'
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   if (Get-PSRepository @paramGetPSRepository | Where-Object -FilterScript {
          $PSItem.InstallationPolicy -ne 'Trusted'
       })
    {
-      $null = (Set-PSRepository -Name PSGallery -InstallationPolicy Trusted)
+      $paramSetPSRepository = @{
+         Name               = 'PSGallery'
+         InstallationPolicy = 'Trusted'
+         ErrorAction        = $SCT
+         WarningAction      = $SCT
+      }
+      $null = (Set-PSRepository @paramSetPSRepository)
    }
    #endregion MakePSGalleryTrusted
    
    #region CheckPSWindowsUpdate
    # Check if we have the latest version installed
-   if (-not (Get-Module -Name PSWindowsUpdate -ListAvailable -ErrorAction $SCT -WarningAction $SCT | Sort-Object -Descending -Property Version | Select-Object -First 1 | Where-Object -FilterScript {
+   $paramGetModule = @{
+      Name          = 'PSWindowsUpdate'
+      ListAvailable = $true
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   if (-not (Get-Module @paramGetModule | Sort-Object -Descending -Property Version | Select-Object -First 1 | Where-Object -FilterScript {
             $PSItem.Version -cge $PSWindowsUpdateVersion
          }))
    {
       # Get the latest
-      $null = (Install-Module -Name PSWindowsUpdate -Force -MinimumVersion $PSWindowsUpdateVersion -Repository PSGallery -AllowClobber:$true)
+      $paramInstallModule = @{
+         Name           = 'PSWindowsUpdate'
+         Force          = $true
+         MinimumVersion = $PSWindowsUpdateVersion
+         Repository     = 'PSGallery'
+         AllowClobber   = $true
+         ErrorAction    = $SCT
+         WarningAction  = $SCT
+      }
+      $null = (Install-Module @paramInstallModule)
    }
    #endregion CheckPSWindowsUpdate
    
    #region ImportPSWindowsUpdate
-   $null = (Import-Module -Name PSWindowsUpdate -Force -DisableNameChecking -NoClobber -MinimumVersion $PSWindowsUpdateVersion -ErrorAction $SCT -WarningAction $SCT)
+   $paramImportModule = @{
+      Name                = 'PSWindowsUpdate'
+      Force               = $true
+      DisableNameChecking = $true
+      NoClobber           = $true
+      MinimumVersion      = $PSWindowsUpdateVersion
+      ErrorAction         = $SCT
+      WarningAction       = $SCT
+   }
+   $null = (Import-Module @paramImportModule)
    #endregion ImportPSWindowsUpdate
 }
 
@@ -76,7 +126,20 @@ process
    {
       Write-Output -InputObject 'Install all available drivers'
       
-      $null = (Get-WindowsUpdate -Install -MicrosoftUpdate -UpdateType Driver -IgnoreUserInput -AcceptAll -IgnoreReboot -ForceInstall -ComputerName $env:ComputerName -Confirm:$false -ErrorAction $SCT -WarningAction $SCT)
+      $paramGetWindowsUpdate = @{
+         Install         = $true
+         MicrosoftUpdate = $true
+         UpdateType      = 'Driver'
+         IgnoreUserInput = $true
+         AcceptAll       = $true
+         IgnoreReboot    = $true
+         ForceInstall    = $true
+         ComputerName    = $env:ComputerName
+         Confirm         = $false
+         ErrorAction     = $SCT
+         WarningAction   = $SCT
+      }
+      $null = (Get-WindowsUpdate @paramGetWindowsUpdate)
    }
    catch
    {
@@ -89,7 +152,20 @@ process
    {
       Write-Output -InputObject 'Install all available updates, except SilverLight'
       
-      $null = (Get-WindowsUpdate -Install -MicrosoftUpdate -NotKBArticleID KB4481252 -IgnoreUserInput -AcceptAll -IgnoreReboot -ForceDownload -ComputerName $env:ComputerName -Confirm:$false -ErrorAction $SCT -WarningAction $SCT)
+      $paramGetWindowsUpdate = @{
+         Install         = $true
+         MicrosoftUpdate = $true
+         NotKBArticleID  = 'KB4481252'
+         IgnoreUserInput = $true
+         AcceptAll       = $true
+         IgnoreReboot    = $true
+         ForceDownload   = $true
+         ComputerName    = $env:ComputerName
+         Confirm         = $false
+         ErrorAction     = $SCT
+         WarningAction   = $SCT
+      }
+      $null = (Get-WindowsUpdate @paramGetWindowsUpdate)
    }
    catch
    {
@@ -100,7 +176,13 @@ process
 
 end
 {
-   $needReboot = ((Get-WURebootStatus -ComputerName $env:ComputerName -Silent -ErrorAction $SCT -WarningAction $SCT).RebootRequired)
+   $paramGetWURebootStatus = @{
+      ComputerName  = $env:ComputerName
+      Silent        = $true
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $needReboot = ((Get-WURebootStatus @paramGetWURebootStatus).RebootRequired)
    
    if ($needReboot)
    {
