@@ -58,10 +58,12 @@ begin
    if (-not (Get-PackageProvider @paramGetPackageProvider))
    {
       $paramInstallPackageProvider = @{
-         Name          = 'NuGet'
-         Force         = $true
-         ErrorAction   = $SCT
-         WarningAction = $SCT
+         Name            = 'NuGet'
+         RequiredVersion = '2.8.5.201'
+         scope           = 'AllUsers'
+         Force           = $true
+         ErrorAction     = $SCT
+         WarningAction   = $SCT
       }
       $null = (Install-PackageProvider @paramInstallPackageProvider)
    }
