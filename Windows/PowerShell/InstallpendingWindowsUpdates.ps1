@@ -24,10 +24,10 @@
 [CmdletBinding(ConfirmImpact = 'Low')]
 param
 (
-   [Parameter(ValueFromPipeline = $true,
-              ValueFromPipelineByPropertyName = $true)]
+   [Parameter(ValueFromPipeline,
+              ValueFromPipelineByPropertyName)]
    [ValidateNotNullOrEmpty()]
-   [version]
+   [string]
    $PSWindowsUpdateVersion = '2.2.0.3'
 )
 
