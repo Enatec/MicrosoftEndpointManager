@@ -1,9 +1,11 @@
 ﻿<#
-      HKEY_LOCAL_MACHINE\SOFTWARE\enabling Technology\Packages\BasePackage
+      C:\Program Files\enabling Technology\Packages\BasePackage.tag
 #>
 
 #region Global
+$RegistryPath = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Communications'
 $SCT = 'SilentlyContinue'
+$SCT = $SCT
 
 $paramRemoveItemProperty = @{
    Force       = $true
@@ -12,15 +14,49 @@ $paramRemoveItemProperty = @{
 }
 #endregion Global
 
+#region ARM64
+# If we are running as a 32-bit process on an x64 system, re-launch as a 64-bit process
+if ("$env:PROCESSOR_ARCHITEW6432" -ne 'ARM64')
+{
+    if (Test-Path -Path ('{0}\SysNative\WindowsPowerShell\v1.0\powershell.exe' -f $env:WINDIR) -ErrorAction $SCT -WarningAction $SCT)
+    {
+        & "$($env:WINDIR)\SysNative\WindowsPowerShell\v1.0\powershell.exe" -ExecutionPolicy bypass -NoProfile -File $PSCommandPath
+        Exit $lastexitcode
+    }
+}
+#endregion ARM64
+
 #region
 $RegistryPath = 'HKLM:\SOFTWARE\enabling Technology\Packages\BasePackage'
 
-if ((Test-Path -LiteralPath $RegistryPath -ErrorAction $SCT) -ne $true)
+$paramTestPath = @{
+   LiteralPath   = $RegistryPath
+   ErrorAction   = $SCT
+   WarningAction = $SCT
+}
+if ((Test-Path @paramTestPath) -ne $true)
 {
-   $null = (New-Item -Path $RegistryPath -Force -Confirm:$false -ErrorAction $SCT)
+   $paramNewItem = @{
+      Path          = $RegistryPath
+      Force         = $true
+      Confirm       = $false
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $null = (New-Item @paramNewItem)
 }
 
-$null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'Installed' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $SCT)
+$paramNewItemProperty = @{
+   LiteralPath   = $RegistryPath
+   Name          = 'Installed'
+   Value         = 1
+   PropertyType  = 'DWord'
+   Force         = $true
+   Confirm       = $false
+   ErrorAction   = $SCT
+   WarningAction = $SCT
+}
+$null = (New-ItemProperty @paramNewItemProperty)
 #endregion
 
 
@@ -54,37 +90,37 @@ function Confirm-RegistryItemProperty
    param
    (
       [Parameter(Mandatory,
-         ValueFromPipeline,
-         ValueFromPipelineByPropertyName,
-         HelpMessage = 'Add help message for user')]
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
+      HelpMessage = 'Add help message for user')]
       [ValidateNotNullOrEmpty()]
       [Alias('RegistryPath')]
       [string]
       $Path,
       [Parameter(Mandatory,
-         ValueFromPipeline,
-         ValueFromPipelineByPropertyName,
-         HelpMessage = 'Add help message for user')]
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
+      HelpMessage = 'Add help message for user')]
       [ValidateNotNullOrEmpty()]
       [Alias('Property', 'Type')]
       [string]
       $PropertyType,
       [Parameter(ValueFromPipeline,
-         ValueFromPipelineByPropertyName)]
+      ValueFromPipelineByPropertyName)]
       [AllowEmptyCollection()]
       [AllowEmptyString()]
       [AllowNull()]
       [Alias('RegistryValue')]
       $Value
    )
-
+   
    begin
    {
       #region
       $SCT = 'SilentlyContinue'
       #endregion
    }
-
+   
    process
    {
       $paramTestPath = @{
@@ -102,7 +138,7 @@ function Confirm-RegistryItemProperty
          }
          $null = (New-Item @paramNewItem)
       }
-
+      
       $paramGetItemProperty = @{
          Path          = ($Path | Split-Path)
          Name          = ($Path | Split-Path -Leaf)
@@ -143,7 +179,7 @@ function Confirm-RegistryItemProperty
                ErrorAction   = $SCT
             }
             $null = (Remove-ItemProperty @paramRemoveItemProperty)
-
+            
             $paramNewItemProperty = @{
                Path          = ($Path | Split-Path)
                Name          = ($Path | Split-Path -Leaf)
@@ -178,25 +214,38 @@ function Confirm-RegistryItemProperty
 
 #region DirectoryStructure
 $DirectoryStructure = @(
-   'c:\Temp'
-   'C:\Scripts'
-   'C:\Scripts\Batch'
-   'C:\Scripts\PowerShell'
-   'C:\Scripts\PowerShell\export'
-   'C:\Scripts\PowerShell\import'
-   'C:\Scripts\PowerShell\logs'
-   'C:\Scripts\PowerShell\reports'
-   'C:\Tools'
-   'C:\windows\Provisioning\Autopilot'
+   ('{0}\Temp' -f $env:HOMEDRIVE)
+   ('{0}\Scripts' -f $env:HOMEDRIVE)
+   ('{0}\Scripts\Batch' -f $env:HOMEDRIVE)
+   ('{0}\Scripts\PowerShell' -f $env:HOMEDRIVE)
+   ('{0}\Scripts\PowerShell\export' -f $env:HOMEDRIVE)
+   ('{0}\Scripts\PowerShell\import' -f $env:HOMEDRIVE)
+   ('{0}\Scripts\PowerShell\logs' -f $env:HOMEDRIVE)
+   ('{0}\Scripts\PowerShell\reports' -f $env:HOMEDRIVE)
+   ('{0}\Tools' -f $env:HOMEDRIVE)
+   ('{0}\windows\Provisioning\Autopilot' -f $env:HOMEDRIVE)
 )
 
 foreach ($Path in $DirectoryStructure)
 {
-   if (-not (Test-Path -Path $Path -ErrorAction SilentlyContinue))
+   $paramTestPath = @{
+      Path          = $Path
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   if (-not (Test-Path @paramTestPath))
    {
       try
       {
-         $null = (New-Item -Path $Path -ItemType Directory -Force -Confirm:$false -ErrorAction SilentlyContinue)
+         $paramNewItem = @{
+            Path          = $Path
+            ItemType      = 'Directory'
+            Force         = $true
+            Confirm       = $false
+            ErrorAction   = $SCT
+            WarningAction = $SCT
+         }
+         $null = (New-Item @paramNewItem)
       }
       catch
       {
@@ -222,7 +271,15 @@ foreach ($Wallpaper in ((Get-Item -Path ('{0}\Wallpaper\*' -f $PSScriptRoot))))
 {
    try
    {
-      $null = (Copy-Item -Path $Wallpaper.FullName -Destination ($TargetDirectory + $Wallpaper.Name) -Force -Confirm:$false -ErrorAction SilentlyContinue)
+      $paramCopyItem = @{
+         Path          = $Wallpaper.FullName
+         Destination   = ($TargetDirectory + $Wallpaper.Name)
+         Force         = $true
+         Confirm       = $false
+         ErrorAction   = $SCT
+         WarningAction = $SCT
+      }
+      $null = (Copy-Item @paramCopyItem)
    }
    catch
    {
@@ -243,11 +300,24 @@ foreach ($Wallpaper in ((Get-Item -Path ('{0}\Wallpaper\*' -f $PSScriptRoot))))
 #region PowerShelScripts
 $TargetDirectory = "$env:HOMEDRIVE\Scripts\PowerShell\"
 
-foreach ($PowerShelScript in ((Get-Item -Path ('{0}\PowerShell\*' -f $PSScriptRoot))))
+$paramGetItem = @{
+   Path          = ('{0}\PowerShell\*' -f $PSScriptRoot)
+   ErrorAction   = $SCT
+   WarningAction = $SCT
+}
+foreach ($PowerShelScript in (Get-Item @paramGetItem))
 {
    try
    {
-      $null = (Copy-Item -Path $PowerShelScript.FullName -Destination ($TargetDirectory + $PowerShelScript.Name) -Force -Confirm:$false -ErrorAction SilentlyContinue)
+      $paramCopyItem = @{
+         Path          = $PowerShelScript.FullName
+         Destination   = ($TargetDirectory + $PowerShelScript.Name)
+         Force         = $true
+         Confirm       = $false
+         ErrorAction   = $SCT
+         WarningAction = $SCT
+      }
+      $null = (Copy-Item @paramCopyItem)
    }
    catch
    {
@@ -272,7 +342,15 @@ foreach ($Tool in ((Get-Item -Path ('{0}\Tools\*' -f $PSScriptRoot))))
 {
    try
    {
-      $null = (Copy-Item -Path $Tool.FullName -Destination ($TargetDirectory + $Tool.Name) -Force -Confirm:$false -ErrorAction SilentlyContinue)
+      $paramCopyItem = @{
+         Path          = $Tool.FullName
+         Destination   = ($TargetDirectory + $Tool.Name)
+         Force         = $true
+         Confirm       = $false
+         ErrorAction   = $SCT
+         WarningAction = $SCT
+      }
+      $null = (Copy-Item @paramCopyItem)
    }
    catch
    {
@@ -294,43 +372,68 @@ foreach ($Tool in ((Get-Item -Path ('{0}\Tools\*' -f $PSScriptRoot))))
 $TargetDirectory = "$env:windir\Provisioning\Autopilot\"
 $ConfigurationFile = 'AutopilotConfigurationFile.json'
 
-if (Test-Path -Path ($TargetDirectory + $ConfigurationFile) -ErrorAction SilentlyContinue)
+$paramTestPath = @{
+   Path          = ($TargetDirectory + $ConfigurationFile)
+   ErrorAction   = $SCT
+   WarningAction = $SCT
+}
+if (Test-Path @paramTestPath)
 {
-   $null = (Remove-Item -Path ($TargetDirectory + $ConfigurationFile) -Force -Confirm:$false -ErrorAction SilentlyContinue)
+   $paramRemoveItem = @{
+      Path          = ($TargetDirectory + $ConfigurationFile)
+      Force         = $true
+      Confirm       = $false
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $null = (Remove-Item @paramRemoveItem)
 }
 
 <#
-foreach ($Tool in ((Get-Item -Path ('{0}\Autopilot\*' -f $PSScriptRoot))))
-{
-   try
-   {
+      foreach ($Tool in ((Get-Item -Path ('{0}\Autopilot\*' -f $PSScriptRoot))))
+      {
+      try
+      {
       $null = (Copy-Item -Path $Tool.FullName -Destination ($TargetDirectory + $Tool.Name) -Force -Confirm:$false -ErrorAction SilentlyContinue)
-   }
-   catch
-   {
+      }
+      catch
+      {
       [Management.Automation.ErrorRecord]$e = $_
       $info = [PSCustomObject]@{
-         Exception = $e.Exception.Message
-         Reason    = $e.CategoryInfo.Reason
-         Target    = $e.CategoryInfo.TargetName
-         Script    = $e.InvocationInfo.ScriptName
-         Line      = $e.InvocationInfo.ScriptLineNumber
-         Column    = $e.InvocationInfo.OffsetInLine
+      Exception = $e.Exception.Message
+      Reason    = $e.CategoryInfo.Reason
+      Target    = $e.CategoryInfo.TargetName
+      Script    = $e.InvocationInfo.ScriptName
+      Line      = $e.InvocationInfo.ScriptLineNumber
+      Column    = $e.InvocationInfo.OffsetInLine
       }
       Write-Verbose -Message $info
-   }
-}
+      }
+      }
 #>
 #endregion Autopilot
 
 #region System32
 $TargetDirectory = "$env:windir\System32\"
 
-foreach ($Tool in ((Get-Item -Path ('{0}\System32\*' -f $PSScriptRoot))))
+$paramGetItem = @{
+   Path          = ('{0}\System32\*' -f $PSScriptRoot)
+   ErrorAction   = $SCT
+   WarningAction = $SCT
+}
+foreach ($Tool in (Get-Item @paramGetItem))
 {
    try
    {
-      $null = (Copy-Item -Path $Tool.FullName -Destination ($TargetDirectory + $Tool.Name) -Force -Confirm:$false -ErrorAction SilentlyContinue)
+      $paramCopyItem = @{
+         Path          = $Tool.FullName
+         Destination   = ($TargetDirectory + $Tool.Name)
+         Force         = $true
+         Confirm       = $false
+         ErrorAction   = $SCT
+         WarningAction = $SCT
+      }
+      $null = (Copy-Item @paramCopyItem)
    }
    catch
    {
@@ -351,11 +454,24 @@ foreach ($Tool in ((Get-Item -Path ('{0}\System32\*' -f $PSScriptRoot))))
 #region etc
 $TargetDirectory = "$env:windir\System32\drivers\etc\"
 
-foreach ($Tool in ((Get-Item -Path ('{0}\etc\*' -f $PSScriptRoot))))
+$paramGetItem = @{
+   Path          = ('{0}\etc\*' -f $PSScriptRoot)
+   ErrorAction   = $SCT
+   WarningAction = $SCT
+}
+foreach ($Tool in (Get-Item @paramGetItem))
 {
    try
    {
-      $null = (Copy-Item -Path $Tool.FullName -Destination ($TargetDirectory + $Tool.Name) -Force -Confirm:$false -ErrorAction SilentlyContinue)
+      $paramCopyItem = @{
+         Path          = $Tool.FullName
+         Destination   = ($TargetDirectory + $Tool.Name)
+         Force         = $true
+         Confirm       = $false
+         ErrorAction   = $SCT
+         WarningAction = $SCT
+      }
+      $null = (Copy-Item @paramCopyItem)
    }
    catch
    {
@@ -376,12 +492,34 @@ foreach ($Tool in ((Get-Item -Path ('{0}\etc\*' -f $PSScriptRoot))))
 #region remediation
 try
 {
-   if ((Test-Path -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Communications' -ErrorAction SilentlyContinue) -ne $true)
-   {
-      $null = (New-Item -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Communications' -Confirm:$false -Force -ErrorAction SilentlyContinue)
+   $paramTestPath = @{
+      LiteralPath   = $RegistryPath
+      ErrorAction   = $SCT
+      WarningAction = $SCT
    }
-
-   $null = (New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Communications' -Name 'ConfigureChatAutoInstall' -Value 0 -PropertyType DWord -Confirm:$false -Force -ErrorAction SilentlyContinue)
+   if ((Test-Path @paramTestPath ) -ne $true)
+   {
+      $paramNewItem = @{
+         Path          = $RegistryPath
+         Confirm       = $false
+         Force         = $true
+         ErrorAction   = $SCT
+         WarningAction = $SCT
+      }
+      $null = (New-Item @paramNewItem)
+   }
+   
+   $paramNewItemProperty = @{
+      LiteralPath   = $RegistryPath
+      Name          = 'ConfigureChatAutoInstall'
+      Value         = 0
+      PropertyType  = 'DWord'
+      Confirm       = $false
+      Force         = $true
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $null = (New-ItemProperty @paramNewItemProperty)
 }
 catch
 {
@@ -392,11 +530,79 @@ catch
 #region
 try
 {
-   $null = (Get-AppxPackage -AllUsers -ErrorAction SilentlyContinue | Where-Object { $PSItem.Name -eq 'Microsoftteams' } | Remove-AppxPackage -AllUsers -Confirm:$false -ErrorAction SilentlyContinue)
-   $null = (Get-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue | Where-Object { $PSItem.DisplayName -eq 'MicrosoftTeams' } | Remove-AppxProvisionedPackage -Online -AllUsers -ErrorAction SilentlyContinue)
+   $paramGetAppxPackage = @{
+      AllUsers      = $true
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $paramRemoveAppxPackage = @{
+      AllUsers      = $true
+      Confirm       = $false
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $null = (Get-AppxPackage @paramGetAppxPackage | Where-Object {
+         $PSItem.Name -eq 'Microsoftteams'
+   } | Remove-AppxPackage @paramRemoveAppxPackage)
+   
+   $paramGetAppxProvisionedPackage = @{
+      Online        = $true
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $paramRemoveAppxProvisionedPackage = @{
+      Online        = $true
+      AllUsers      = $true
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $null = (Get-AppxProvisionedPackage @paramGetAppxProvisionedPackage | Where-Object {
+         $PSItem.DisplayName -eq 'MicrosoftTeams'
+   } | Remove-AppxProvisionedPackage @paramRemoveAppxProvisionedPackage)
 }
 catch
 {
    Write-Verbose -Message 'Did NOT see this one comming!'
+}
+#endregion
+
+#region
+$IntuneLink = ('{0}\Microsoft\Windows\Start Menu\Programs\Microsoft Intune Management Extension\Microsoft Intune Management Extension.lnk' -f $env:ProgramData)
+$IntuneLinkDir = ('{0}\Microsoft\Windows\Start Menu\Programs\Microsoft Intune Management Extension\' -f $env:ProgramData)
+
+$paramTestPath = @{
+   Path          = $IntuneLink
+   ErrorAction   = $SCT
+   WarningAction = $SCT
+}
+if (Test-Path @paramTestPath)
+{
+   $paramRemoveItem = @{
+      Path          = $IntuneLink
+      Recurse       = $true
+      Force         = $true
+      Confirm       = $false
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $null = (Remove-Item @paramRemoveItem)
+}
+
+$paramTestPath = @{
+   Path          = $IntuneLinkDir
+   ErrorAction   = $SCT
+   WarningAction = $SCT
+}
+if (Test-Path @paramTestPath)
+{
+   $paramRemoveItem = @{
+      Path          = $IntuneLinkDir
+      Recurse       = $true
+      Force         = $true
+      Confirm       = $false
+      ErrorAction   = $SCT
+      WarningAction = $SCT
+   }
+   $null = (Remove-Item @paramRemoveItem)
 }
 #endregion
