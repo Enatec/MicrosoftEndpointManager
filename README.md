@@ -1,6 +1,8 @@
 # Microsoft Endpoint Manager
 
-All Microsoft Endpoint Manager related stuff
+All Microsoft Endpoint Manager related stuff.
+
+We will not provide any binary files and/or installers to prevent any licensing issues. You should be able to download the Files from the vendor, or use Google to find the binary files and/or installers referenced in the installer/setup script.
 
 ## Found a bug or Issue?
 
