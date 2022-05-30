@@ -47,7 +47,7 @@ If applicable, add screenshots to help explain your problem.
 
 - Operating System:
 - PowerShell version:
-- PowerShell Edition (Desktop/Core):
+- PowerShell Edition (Windows PowerShell/PowerShell Core):
 - Other PowerShell Modules installed:
 
 **Additional context**

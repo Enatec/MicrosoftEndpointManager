@@ -22,7 +22,7 @@ A clear and concise description of any alternative solutions or features you've 
 
 - Operating System:
 - PowerShell version:
-- PowerShell Edition (Desktop/Core):
+- PowerShell Edition (Windows PowerShell/PowerShell Core):
 - Other PowerShell Modules installed:
 
 **Additional context**
