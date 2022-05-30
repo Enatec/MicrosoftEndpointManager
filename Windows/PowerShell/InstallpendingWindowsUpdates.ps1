@@ -60,7 +60,7 @@ begin
       $paramInstallPackageProvider = @{
          Name            = 'NuGet'
          RequiredVersion = '2.8.5.201'
-         Scope           = 'AllUsers'
+         scope           = 'AllUsers'
          Force           = $true
          ErrorAction     = $SCT
          WarningAction   = $SCT
