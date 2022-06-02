@@ -76,10 +76,10 @@ catch
       Column    = $e.InvocationInfo.OffsetInLine
    }
 
-   Write-Warning -Message $info -WarningAction $STP
+   Write-Warning -Message $info -WarningAction Continue
 
    exit 1
 }
 
-return $true
+exit 0
 #endregion Remediation

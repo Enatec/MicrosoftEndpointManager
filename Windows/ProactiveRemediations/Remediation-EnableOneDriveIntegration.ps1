@@ -8,5 +8,5 @@ if ((Test-Path -LiteralPath $RegistryPath) -ne $true)
 
 $null = (Remove-ItemProperty -LiteralPath $RegistryPath -Name 'DisableFileSyncNGSC' -Confirm:$false -Force -ErrorAction SilentlyContinue)
 
-return $true
+exit 0
 #endregion Remediation

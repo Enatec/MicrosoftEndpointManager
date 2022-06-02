@@ -48,12 +48,8 @@ if (-not ($RegistryRoot))
 
 If (Get-Item -Path ('{0}:\ms-msdt' -f $RegistryRoot) -ErrorAction $SCT)
 {
-   return $false
-}
-else
-{
-   return $true
+   exit 1
 }
 
-return $true
+exit 0
 #endregion Check

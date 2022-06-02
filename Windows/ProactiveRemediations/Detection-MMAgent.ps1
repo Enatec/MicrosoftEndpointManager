@@ -21,5 +21,5 @@ If ($MMAgentSetup.PageCombining -ne $true)
    $null = (Enable-MMAgent -PageCombining -ErrorAction SilentlyContinue)
 }
 
-return $true
+exit 0
 #endregion Check
