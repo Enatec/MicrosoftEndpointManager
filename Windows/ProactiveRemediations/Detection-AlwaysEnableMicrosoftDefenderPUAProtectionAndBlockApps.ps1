@@ -1,4 +1,4 @@
-﻿#region Check
+#region Check
 $RegistryPath = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender'
 
 try

@@ -1,4 +1,4 @@
-﻿#region Remediation
+#region Remediation
 $RegistryPath = 'HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity'
 
 if (-not (Test-Path -LiteralPath $RegistryPath -ErrorAction SilentlyContinue))

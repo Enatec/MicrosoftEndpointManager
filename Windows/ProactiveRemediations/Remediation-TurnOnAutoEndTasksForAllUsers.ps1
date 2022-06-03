@@ -1,4 +1,4 @@
-﻿#region Remediation
+#region Remediation
 $RegistryPath = 'Registry::\HKEY_USERS\.DEFAULT\Control Panel\Desktop'
 
 if (-not (Test-Path -LiteralPath $RegistryPath -ErrorAction SilentlyContinue))

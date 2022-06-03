@@ -1,4 +1,4 @@
-﻿#region Check
+#region Check
 $RegistryPath = 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling'
 
 try

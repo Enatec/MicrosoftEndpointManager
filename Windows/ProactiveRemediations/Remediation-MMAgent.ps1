@@ -1,4 +1,4 @@
-﻿#region Remediation
+#region Remediation
 $MMAgentSetup = (Get-MMAgent -ErrorAction SilentlyContinue)
 
 If ($MMAgentSetup.ApplicationPreLaunch -ne $true)

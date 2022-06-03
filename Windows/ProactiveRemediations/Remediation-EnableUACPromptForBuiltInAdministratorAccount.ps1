@@ -1,4 +1,4 @@
-﻿#region Remediation
+#region Remediation
 $RegistryPath = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
 
 if (-not (Test-Path -LiteralPath $RegistryPath -ErrorAction SilentlyContinue))

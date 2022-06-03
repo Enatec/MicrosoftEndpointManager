@@ -1,4 +1,4 @@
-﻿#region Remediation
+#region Remediation
 $RegistryPath = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive'
 
 if ((Test-Path -LiteralPath $RegistryPath) -ne $true)

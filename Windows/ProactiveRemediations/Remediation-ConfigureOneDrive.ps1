@@ -1,4 +1,4 @@
-﻿#region Remediation
+#region Remediation
 # Registry Path
 $RegistryPath = 'HKLM:\SOFTWARE\Policies\Microsoft\OneDrive'
 

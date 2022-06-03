@@ -1,4 +1,4 @@
-﻿#region Check
+#region Check
 $RegistryPath = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive'
 
 try
@@ -20,3 +20,4 @@ catch
 
 exit 0
 #endregion Check
+

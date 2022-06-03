@@ -1,4 +1,4 @@
-﻿#region Check
+#region Check
 $RegistryPath = 'Registry::\HKEY_USERS\.DEFAULT\Control Panel\Desktop'
 
 try

@@ -1,4 +1,4 @@
-﻿#region Check
+#region Check
 $RegistryPath = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
 
 try

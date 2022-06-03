@@ -1,4 +1,4 @@
-﻿#region AllowAllNETUpdates
+#region AllowAllNETUpdates
 function Get-AllowAllNETUpdates
 {
    <#
