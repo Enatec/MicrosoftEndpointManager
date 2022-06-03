@@ -341,3 +341,4 @@ function Set-AllowAllNET31Updates
    $null = (New-ItemProperty @paramNewItemProperty)
 }
 #endregion AllowAllNET31Updates
+

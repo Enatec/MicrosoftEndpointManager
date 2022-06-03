@@ -1,4 +1,4 @@
-﻿#requires -Version 1.0
+#requires -Version 1.0
 
 $VerbosePreference = 'Continue'
 
@@ -113,3 +113,4 @@ foreach ($scope in 'User', 'Machine')
 {
    [Environment]::SetEnvironmentVariable('ChocolateyToolsLocation', [string]::Empty, $scope)
 }
+

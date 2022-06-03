@@ -1,4 +1,4 @@
-﻿# 7.0.2.0090
+# 7.0.2.0090
 
 # VPN profile
 $VPNProfilePath = 'HKLM:\SOFTWARE\Fortinet\FortiClient\Sslvpn\Tunnels\<NAME>'
@@ -39,3 +39,4 @@ $null = (New-ItemProperty -LiteralPath $VPNProfilePath -Name 'machine' -Value 0 
 $null = (New-ItemProperty -LiteralPath $VPNProfilePath -Name 'ServerCert' -Value '1' -PropertyType String -Force -Confirm:$false -ErrorAction $SCT)
 $null = (New-ItemProperty -LiteralPath $VPNProfilePath -Name 'promptcertificate' -Value 0 -PropertyType DWord -Force -Confirm:$false -ErrorAction $SCT)
 $null = (New-ItemProperty -LiteralPath $VPNProfilePath -Name 'promptusername' -Value 0 -PropertyType DWord -Force -Confirm:$false -ErrorAction $SCT)
+

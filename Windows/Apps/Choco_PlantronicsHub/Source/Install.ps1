@@ -1,4 +1,4 @@
-﻿# C:\Program Files (x86)\Plantronics\Spokes3G\PLTHub.exe
+# C:\Program Files (x86)\Plantronics\Spokes3G\PLTHub.exe
  
 $ChocoPackage = 'plantronicshub'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

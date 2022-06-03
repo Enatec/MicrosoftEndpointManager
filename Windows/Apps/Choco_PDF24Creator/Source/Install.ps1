@@ -1,4 +1,4 @@
-﻿# C:\Program Files\PDF24\pdf24-Creator.exe
+# C:\Program Files\PDF24\pdf24-Creator.exe
  
 $ChocoPackage = 'pdf24'
 $ChocoParams = '/Basic'
@@ -108,4 +108,5 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+
 

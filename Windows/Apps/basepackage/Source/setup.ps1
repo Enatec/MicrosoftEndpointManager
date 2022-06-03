@@ -1,4 +1,4 @@
-﻿<#
+<#
       C:\Program Files\enabling Technology\Packages\BasePackage.tag
 #>
 

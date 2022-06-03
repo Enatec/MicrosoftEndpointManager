@@ -1,4 +1,4 @@
-﻿# 7.0.2.0090
+# 7.0.2.0090
 
 #region
 $SCT = 'SilentlyContinue'

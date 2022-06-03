@@ -1,4 +1,4 @@
-﻿# C:\Program Files\Mozilla Firefox\firefox.exe
+# C:\Program Files\Mozilla Firefox\firefox.exe
  
 $ChocoPackage = 'firefox'
 $ChocoParams = '/NoTaskbarShortcut /NoDesktopShortcut /NoMaintenanceService /NoAutoUpdate /RemoveDistributionDir'
@@ -108,4 +108,5 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+
 

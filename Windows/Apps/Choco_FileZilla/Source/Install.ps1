@@ -1,4 +1,4 @@
-﻿# C:\Program Files\FileZilla FTP Client\filezilla.exe
+# C:\Program Files\FileZilla FTP Client\filezilla.exe
  
 $ChocoPackage = 'filezilla'
 $ChocoParams = $null

@@ -10,3 +10,4 @@ $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'FilterAdministratorT
 
 exit 0
 #endregion Remediation
+

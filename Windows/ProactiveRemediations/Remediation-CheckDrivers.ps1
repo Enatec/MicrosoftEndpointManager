@@ -59,3 +59,4 @@ $ToastXml.LoadXml($Toast.OuterXml)
 # Toast creation and display end
 
 exit 0
+

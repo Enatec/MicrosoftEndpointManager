@@ -144,3 +144,4 @@ end
       $null = (Set-MpPreference -EnableControlledFolderAccess Enabled -Force -ErrorAction $SCT)
    }
 }
+

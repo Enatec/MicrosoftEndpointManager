@@ -1,4 +1,4 @@
-﻿$LinkFilter = '*postman*.lnk'
+$LinkFilter = '*postman*.lnk'
 
 #region Defaults
 $SCT = 'SilentlyContinue'
@@ -28,3 +28,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

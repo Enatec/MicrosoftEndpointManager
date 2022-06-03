@@ -1,4 +1,4 @@
-﻿#requires -Version 2.0
+#requires -Version 2.0
 # C:\ProgramData\chocolatey\bin\choco.exe
 
 #region Defaults

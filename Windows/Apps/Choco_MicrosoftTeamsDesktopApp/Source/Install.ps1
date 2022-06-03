@@ -1,4 +1,4 @@
-﻿# C:\Program Files (x86)\Teams Installer\Teams.exe
+# C:\Program Files (x86)\Teams Installer\Teams.exe
 
 $ChocoPackage = 'microsoft-teams.install'
 $ChocoParams = '/AllUsers /NoAutoStart'
@@ -87,3 +87,4 @@ if ($ChocoParams)
 
 $null = (& "$env:ChocolateyInstall\bin\choco.exe" install $ChocoPackage --acceptlicense --limitoutput --no-progress --yes --force --params `"`'$InstallerParams`'`")
 #endregion Installer
+

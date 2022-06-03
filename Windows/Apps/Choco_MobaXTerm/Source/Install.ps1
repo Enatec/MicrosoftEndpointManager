@@ -1,4 +1,4 @@
-﻿# C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe
+# C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe
  
 $ChocoPackage = 'mobaxterm'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

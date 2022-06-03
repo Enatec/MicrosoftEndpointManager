@@ -10,3 +10,4 @@ $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'AutoDownload' -Value
 
 exit 0
 #endregion Remediation
+

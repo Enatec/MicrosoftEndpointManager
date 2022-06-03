@@ -10,3 +10,4 @@ $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'Enabled' -Value 1 -P
 
 exit 0
 #endregion Remediation
+

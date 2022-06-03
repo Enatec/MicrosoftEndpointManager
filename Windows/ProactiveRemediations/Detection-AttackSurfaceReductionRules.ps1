@@ -124,3 +124,4 @@ foreach ($RulesId in $RulesIds)
 
 # We are good to go
 exit 0
+

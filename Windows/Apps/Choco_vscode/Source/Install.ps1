@@ -1,4 +1,4 @@
-﻿# C:\Program Files\Microsoft VS Code\bin\code
+# C:\Program Files\Microsoft VS Code\bin\code
 
 $ChocoPackage = 'vscode'
 $ChocoParams = '/NoDesktopIcon /NoQuicklaunchIcon /NoContextMenuFiles /NoContextMenuFolders'
@@ -124,3 +124,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

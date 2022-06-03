@@ -10,3 +10,4 @@ $null = (Remove-ItemProperty -LiteralPath $RegistryPath -Name 'DisableFileSyncNG
 
 exit 0
 #endregion Remediation
+

@@ -1,4 +1,4 @@
-﻿# %LOCALAPPDATA%\Postman\Postman.exe
+# %LOCALAPPDATA%\Postman\Postman.exe
 
 # BUG: Desktop Icon removal is not working
 # TODO: Check if post install script works better in dedicated PowerShell Session

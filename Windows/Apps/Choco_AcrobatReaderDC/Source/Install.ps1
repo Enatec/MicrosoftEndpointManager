@@ -1,4 +1,4 @@
-﻿# C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe
+# C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe
  
 $ChocoPackage = 'adobereader'
 $ChocoParams = '/NoUpdates'
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

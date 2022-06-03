@@ -1,4 +1,4 @@
-﻿# C:\Program Files\KeePass Password Safe 2\KeePass.exe
+# C:\Program Files\KeePass Password Safe 2\KeePass.exe
  
 $ChocoPackage = 'keepass'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

@@ -1,4 +1,4 @@
-﻿# C:\Program Files\Git\cmd\git.exe
+# C:\Program Files\Git\cmd\git.exe
  
 $ChocoPackage = 'git'
 $ChocoParams = '/GitOnlyOnPath /WindowsTerminal /WindowsTerminalProfile /NoShellIntegration /NoGuiHereIntegration /NoShellHereIntegration /SChannel /Editor:VisualStudioCode'
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+
