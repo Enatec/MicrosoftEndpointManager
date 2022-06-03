@@ -1,4 +1,4 @@
-﻿# C:\ProgramData\chocolatey\lib\snagit\snagit.nupkg
+# C:\ProgramData\chocolatey\lib\snagit\snagit.nupkg
  
 $ChocoPackage = 'snagit'
 $ChocoParams = '/DisableAutoStart /DisableStartNow /HideRegistrationKey'
@@ -108,4 +108,5 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+
 

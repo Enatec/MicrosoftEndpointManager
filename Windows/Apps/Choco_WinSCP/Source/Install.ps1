@@ -1,4 +1,4 @@
-﻿# C:\Program Files (x86)\WinSCP\WinSCP.exe
+# C:\Program Files (x86)\WinSCP\WinSCP.exe
  
 $ChocoPackage = 'winscp.install'
 $ChocoParams = $null

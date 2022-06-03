@@ -1,4 +1,4 @@
-﻿$ChocoPackage = 'postman'
+$ChocoPackage = 'postman'
 
 #region Defaults
 $SCT = 'SilentlyContinue'

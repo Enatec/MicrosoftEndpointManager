@@ -1,4 +1,4 @@
-﻿# C:\ProgramData\chocolatey\lib\hpsupportassistant\hpsupportassistant.nupkg
+# C:\ProgramData\chocolatey\lib\hpsupportassistant\hpsupportassistant.nupkg
  
 $ChocoPackage = 'hpsupportassistant'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

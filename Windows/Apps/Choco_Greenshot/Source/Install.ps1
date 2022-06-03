@@ -1,4 +1,4 @@
-﻿# C:\Program Files\Greenshot\Greenshot.exe
+# C:\Program Files\Greenshot\Greenshot.exe
  
 $ChocoPackage = 'greenshot'
 $ChocoParams = $null
@@ -108,4 +108,5 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+
 

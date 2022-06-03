@@ -1,4 +1,4 @@
-﻿# C:\Program Files\7-Zip\7z.exe
+# C:\Program Files\7-Zip\7z.exe
  
 $ChocoPackage = '7zip'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

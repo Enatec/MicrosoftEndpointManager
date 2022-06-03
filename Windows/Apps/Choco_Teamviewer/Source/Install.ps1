@@ -1,4 +1,4 @@
-﻿# C:\Program Files\TeamViewer\TeamViewer_Desktop.exe
+# C:\Program Files\TeamViewer\TeamViewer_Desktop.exe
  
 $ChocoPackage = 'teamviewer'
 $ChocoParams = $null
@@ -108,4 +108,5 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+
 

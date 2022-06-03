@@ -1,4 +1,4 @@
-﻿# 7.0.2.0090
+# 7.0.2.0090
 
 #region
 $SCT = 'SilentlyContinue'
@@ -24,3 +24,4 @@ $null = (Stop-Process -Name FortiClient -Force -Confirm:$false -ErrorAction $SCT
 
 # Uninstall FortiClient
 $null = (Start-Process -FilePath ('{0}\system32\msiexec.exe' -f $env:windir) -Wait -ArgumentList /'x {C0063176-0C6B-4087-B19D-437BD6CD7341} /qn')
+

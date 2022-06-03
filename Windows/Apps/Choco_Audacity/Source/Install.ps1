@@ -1,4 +1,4 @@
-﻿# C:\Program Files\Git\cmd\git.exe
+# C:\Program Files\Git\cmd\git.exe
  
 $ChocoPackage = 'Audacity'
 $ChocoParams = $null
@@ -87,3 +87,4 @@ if ($ChocoParams)
 
 $null = (& "$env:ChocolateyInstall\bin\choco.exe" install $ChocoPackage --acceptlicense --limitoutput --no-progress --yes --force --params $InstallerParams)
 #endregion Installer
+

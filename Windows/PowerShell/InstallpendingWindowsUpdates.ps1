@@ -1,4 +1,4 @@
-﻿<#
+<#
       .SYNOPSIS
       Automates the PSWindowsUpdate module to install OS updates
 

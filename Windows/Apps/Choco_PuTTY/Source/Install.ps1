@@ -1,4 +1,4 @@
-﻿# C:\Program Files\PuTTY\putty.exe
+# C:\Program Files\PuTTY\putty.exe
  
 $ChocoPackage = 'putty.install'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

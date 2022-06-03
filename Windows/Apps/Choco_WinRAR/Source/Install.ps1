@@ -1,4 +1,4 @@
-﻿# C:\Program Files\WinRAR\WinRAR.exe
+# C:\Program Files\WinRAR\WinRAR.exe
  
 $ChocoPackage = 'winrar'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

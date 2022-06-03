@@ -1,4 +1,4 @@
-﻿# C:\Program Files (x86)\Foxit Software\Foxit PDF Reader\FoxitPDFReader.exe
+# C:\Program Files (x86)\Foxit Software\Foxit PDF Reader\FoxitPDFReader.exe
  
 $ChocoPackage = 'notepadplusplus'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+

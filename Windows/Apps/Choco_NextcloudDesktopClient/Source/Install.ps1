@@ -1,4 +1,4 @@
-﻿# C:\Program Files\Nextcloud\nextcloud.exe
+# C:\Program Files\Nextcloud\nextcloud.exe
  
 $ChocoPackage = 'nextcloud-client'
 $ChocoParams = $null
@@ -108,3 +108,4 @@ if ($LinkFilter) {
    $paramRemoveItem = $null
 }
 #endregion Cleanup
+
