@@ -17,14 +17,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   $Registry = ((Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1' -Name 'Timerautomount' -ErrorAction Stop).Timerautomount)
-
-   if ($Registry -eq 1)
-   {
-      Exit 0
-   }
-
-   Exit 1
+   $null = (New-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1' -Name 'Timerautomount' -Type 'QWORD' -Value 1 -Force -Confirm:$false -ErrorAction Stop)
 }
 catch
 {
