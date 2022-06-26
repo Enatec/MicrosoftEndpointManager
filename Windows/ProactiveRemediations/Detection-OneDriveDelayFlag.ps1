@@ -1,4 +1,17 @@
-﻿#region
+﻿<#
+   .SYNOPSIS
+   OneDrive for Business Delay Flag (Timerautomount)
+
+   .DESCRIPTION
+   OneDrive for Business Delay Flag (Timerautomount)
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
+
+#region
 $STP = 'Stop'
 #endregion
 
@@ -12,7 +25,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
    }
    catch
    {
-      Throw ('Failed to start {0}' -f $PSCOMMANDPATH)
+      throw ('Failed to start {0}' -f $PSCOMMANDPATH)
    }
 
    exit
@@ -25,14 +38,14 @@ try
 
    if ($Registry -eq 1)
    {
-      Exit 0
+      exit 0
    }
 
-   Exit 1
+   exit 1
 }
 catch
 {
    Write-Error -Message $_ -ErrorAction $STP
 
-   Exit 1
+   exit 1
 }

@@ -1,4 +1,15 @@
-# Remediation Enable Photo Viewer (user)
+<#
+   .SYNOPSIS
+   Enable Photo Viewer
+
+   .DESCRIPTION
+   Enable Photo Viewer for all image types
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
 
 #region Defaults
 $STP = 'Stop'
@@ -15,7 +26,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
    }
    catch
    {
-      Throw ('Failed to start {0}' -f $PSCOMMANDPATH)
+      throw ('Failed to start {0}' -f $PSCOMMANDPATH)
    }
 
    exit
@@ -101,5 +112,5 @@ catch
 {
    Write-Error -Message $_ -ErrorAction $STP
 
-   Exit 1
+   exit 1
 }

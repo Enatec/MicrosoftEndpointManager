@@ -1,3 +1,15 @@
+<#
+   .SYNOPSIS
+   Microsoft Defender Application Guard
+
+   .DESCRIPTION
+   Microsoft Defender Application Guard
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
 
 #region
 $STP = 'Stop'

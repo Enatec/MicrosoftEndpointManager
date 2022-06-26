@@ -1,4 +1,15 @@
+<#
+   .SYNOPSIS
+   Enable Microsoft Edge Auto Update
 
+   .DESCRIPTION
+   Enable Microsoft Edge Auto Update
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
@@ -10,7 +21,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
    }
    catch
    {
-      Throw ('Failed to start {0}' -f $PSCOMMANDPATH)
+      throw ('Failed to start {0}' -f $PSCOMMANDPATH)
    }
 
    exit
@@ -54,6 +65,6 @@ $Channel | ForEach-Object {
    {
       Write-Error -Message $_ -ErrorAction $STP
 
-      Exit 1
+      exit 1
    }
 }

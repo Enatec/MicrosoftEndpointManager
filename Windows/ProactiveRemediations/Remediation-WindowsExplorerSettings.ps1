@@ -1,4 +1,15 @@
-# Remediation-WindowsExplorerSettings (User)
+<#
+   .SYNOPSIS
+   Tweak Windows Explorer Settings
+
+   .DESCRIPTION
+   Tweak Windows Explorer Settings
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
 
 #region Defaults
 $STP = 'Stop'
