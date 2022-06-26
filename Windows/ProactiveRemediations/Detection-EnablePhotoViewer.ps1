@@ -1,4 +1,19 @@
-# Check Enable Photo Viewer
+<#
+   .SYNOPSIS
+   Enable Photo Viewer
+
+   .DESCRIPTION
+   Enable Photo Viewer for all image types
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
+
+#region Defaults
+$STP = 'Stop'
+#endregion Defaults
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
@@ -10,7 +25,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
    }
    catch
    {
-      Throw ('Failed to start {0}' -f $PSCOMMANDPATH)
+      throw ('Failed to start {0}' -f $PSCOMMANDPATH)
    }
 
    exit
@@ -19,184 +34,184 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.bmp' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.bmp' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.gif' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.gif' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.ico' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.ico' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.jpeg' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.jpeg' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.jpg' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.jpg' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.png' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Classes\.png' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.gif\OpenWithProgids' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.gif\OpenWithProgids' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ico\OpenWithProgids' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ico\OpenWithProgids' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpeg\OpenWithProgids' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpeg\OpenWithProgids' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bmp\OpenWithProgids' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bmp\OpenWithProgids' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpg\OpenWithProgids' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpg\OpenWithProgids' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.png\OpenWithProgids' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.png\OpenWithProgids' -ErrorAction $STP))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.bmp' -Name '(default)' -ErrorAction Stop) -eq 'PhotoViewer.FileAssoc.Tiff'))
+   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.bmp' -Name '(default)' -ErrorAction $STP) -eq 'PhotoViewer.FileAssoc.Tiff'))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.gif' -Name '(default)' -ErrorAction Stop) -eq 'PhotoViewer.FileAssoc.Tiff'))
+   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.gif' -Name '(default)' -ErrorAction $STP) -eq 'PhotoViewer.FileAssoc.Tiff'))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.ico' -Name '(default)' -ErrorAction Stop) -eq 'PhotoViewer.FileAssoc.Tiff'))
+   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.ico' -Name '(default)' -ErrorAction $STP) -eq 'PhotoViewer.FileAssoc.Tiff'))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.jpeg' -Name '(default)' -ErrorAction Stop) -eq 'PhotoViewer.FileAssoc.Tiff'))
+   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.jpeg' -Name '(default)' -ErrorAction $STP) -eq 'PhotoViewer.FileAssoc.Tiff'))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.jpg' -Name '(default)' -ErrorAction Stop) -eq 'PhotoViewer.FileAssoc.Tiff'))
+   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.jpg' -Name '(default)' -ErrorAction $STP) -eq 'PhotoViewer.FileAssoc.Tiff'))
    {
-      Exit 1
+      exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.png' -Name '(default)' -ErrorAction Stop) -eq 'PhotoViewer.FileAssoc.Tiff'))
+   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Classes\.png' -Name '(default)' -ErrorAction $STP) -eq 'PhotoViewer.FileAssoc.Tiff'))
    {
-      Exit 1
-   }
-
-   try
-   {
-      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.gif\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction Stop).length -eq 0))
-      {
-         Exit 1
-      }
-   }
-   catch
-   {
-      Write-Error $_ -ErrorAction Stop
-
-      Exit 1
+      exit 1
    }
 
    try
    {
-      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ico\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction Stop).length -eq 0))
+      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.gif\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction $STP).length -eq 0))
       {
-         Exit 1
+         exit 1
       }
    }
    catch
    {
-      Write-Error $_ -ErrorAction Stop
+      Write-Error -Message $_ -ErrorAction $STP
 
-      Exit 1
+      exit 1
    }
 
    try
    {
-      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpeg\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction Stop).length -eq 0))
+      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ico\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction $STP).length -eq 0))
       {
-         Exit 1
+         exit 1
       }
    }
    catch
    {
-      Write-Error $_ -ErrorAction Stop
+      Write-Error -Message $_ -ErrorAction $STP
 
-      Exit 1
+      exit 1
    }
 
    try
    {
-      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bmp\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction Stop).length -eq 0))
+      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpeg\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction $STP).length -eq 0))
       {
-         Exit 1
+         exit 1
       }
    }
    catch
    {
-      Write-Error $_ -ErrorAction Stop
+      Write-Error -Message $_ -ErrorAction $STP
 
-      Exit 1
+      exit 1
    }
 
    try
    {
-      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpg\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction Stop).length -eq 0))
+      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bmp\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction $STP).length -eq 0))
       {
-         Exit 1
+         exit 1
       }
    }
    catch
    {
-      Write-Error $_ -ErrorAction Stop
+      Write-Error -Message $_ -ErrorAction $STP
 
-      Exit 1
+      exit 1
    }
 
    try
    {
-      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.png\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction Stop).length -eq 0))
+      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpg\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction $STP).length -eq 0))
       {
-         Exit 1
+         exit 1
       }
    }
    catch
    {
-      Write-Error $_ -ErrorAction Stop
-      Exit 1
+      Write-Error -Message $_ -ErrorAction $STP
+
+      exit 1
+   }
+
+   try
+   {
+      if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.png\OpenWithProgids' -Name 'PhotoViewer.FileAssoc.Tiff ' -ErrorAction $STP).length -eq 0))
+      {
+         exit 1
+      }
+   }
+   catch
+   {
+      Write-Error -Message $_ -ErrorAction $STP
+      exit 1
    }
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STP
 
-   Exit 1
+   exit 1
 }
 
-Exit 0
+exit 0

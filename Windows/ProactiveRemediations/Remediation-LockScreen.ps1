@@ -1,4 +1,20 @@
-# Lock Screen Remediation
+<#
+   .SYNOPSIS
+   Windows Lock Screen
+
+   .DESCRIPTION
+   Windows Lock Screen
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
+
+#region Defaults
+$STP = 'Stop'
+$RegistryPath = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization'
+#endregion Defaults
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
@@ -10,7 +26,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
    }
    catch
    {
-      Throw ('Failed to start {0}' -f $PSCOMMANDPATH)
+      throw ('Failed to start {0}' -f $PSCOMMANDPATH)
    }
 
    exit
@@ -19,18 +35,18 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -ErrorAction SilentlyContinue) -ne $true)
+   if ((Test-Path -LiteralPath $RegistryPath -ErrorAction SilentlyContinue) -ne $true)
    {
-      $null = (New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Force -Confirm:$false -ErrorAction Stop)
+      $null = (New-Item -Path $RegistryPath -Force -Confirm:$false -ErrorAction $STP)
    }
 
-   $null = (New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenOverlaysDisabled' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
-   $null = (New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreen' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
-   $null = (New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreenSlideshow' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'LockScreenOverlaysDisabled' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'NoLockScreen' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'NoLockScreenSlideshow' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STP
 
-   Exit 1
+   exit 1
 }

@@ -1,4 +1,20 @@
-# Remediation-WindowsExplorerSettings
+<#
+   .SYNOPSIS
+   Tweak Windows Explorer Settings
+
+   .DESCRIPTION
+   Tweak Windows Explorer Settings
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
+
+#region Defaults
+$STP = 'Stop'
+$RegistryPath = 'HKCU:\Software\Policies\Microsoft\Windows\Explorer'
+#endregion Defaults
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
@@ -19,21 +35,21 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   if ((Test-Path -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -ErrorAction SilentlyContinue) -ne $true)
+   if ((Test-Path -LiteralPath $RegistryPath -ErrorAction SilentlyContinue) -ne $true)
    {
-      $null = (New-Item 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Force -Confirm:$false -ErrorAction Stop)
+      $null = (New-Item -Path $RegistryPath -Force -Confirm:$false -ErrorAction $STP)
    }
 
-   $null = (New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'AddSearchInternetLinkInStartMenu' -Value 0 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
-   $null = (New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'GoToDesktopOnSignIn' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
-   $null = (New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoStartMenuHomegroup' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
-   $null = (New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoStartMenuRecordedTV' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
-   $null = (New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'ShowRunAsDifferentUserInStart' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
-   $null = (New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableSearchBoxSuggestions' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction Stop)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'AddSearchInternetLinkInStartMenu' -Value 0 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'GoToDesktopOnSignIn' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'NoStartMenuHomegroup' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'NoStartMenuRecordedTV' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'ShowRunAsDifferentUserInStart' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
+   $null = (New-ItemProperty -LiteralPath $RegistryPath -Name 'DisableSearchBoxSuggestions' -Value 1 -PropertyType DWord -Force -Confirm:$false -ErrorAction $STP)
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STP
 
    Exit 1
 }

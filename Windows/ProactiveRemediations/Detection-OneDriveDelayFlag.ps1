@@ -1,4 +1,21 @@
-﻿#region ARM64Handling
+﻿<#
+   .SYNOPSIS
+   OneDrive for Business Delay Flag (Timerautomount)
+
+   .DESCRIPTION
+   OneDrive for Business Delay Flag (Timerautomount)
+
+   .NOTES
+   Designed to run in Microsoft Endpoint Manager (Intune)
+#>
+[CmdletBinding(ConfirmImpact = 'None')]
+param ()
+
+#region
+$STP = 'Stop'
+#endregion
+
+#region ARM64Handling
 # Restart Process using PowerShell 64-bit
 if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 {
@@ -8,7 +25,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
    }
    catch
    {
-      Throw ('Failed to start {0}' -f $PSCOMMANDPATH)
+      throw ('Failed to start {0}' -f $PSCOMMANDPATH)
    }
 
    exit
@@ -17,18 +34,18 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   $Registry = ((Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1' -Name 'Timerautomount' -ErrorAction Stop).Timerautomount)
+   $Registry = ((Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1' -Name 'Timerautomount' -ErrorAction $STP).Timerautomount)
 
    if ($Registry -eq 1)
    {
-      Exit 0
+      exit 0
    }
 
-   Exit 1
+   exit 1
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STP
 
-   Exit 1
+   exit 1
 }
