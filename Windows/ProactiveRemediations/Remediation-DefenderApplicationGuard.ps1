@@ -1,3 +1,9 @@
+
+#region
+$STP = 'Stop'
+$SCT = 'SilentlyContinue'
+#endregion
+
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
 if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
@@ -22,7 +28,7 @@ try
    $REG_CREDG_value = ((Get-ItemProperty -Path $REG_CREDG).RunAsPPL)
 
    # Set 'Account lockout threshold' to 1-10 invalid login attempts
-   $NetAccounts = net accounts | Select-String 'lockout threshold'
+   $NetAccounts = net accounts | Select-String -Pattern 'lockout threshold'
 
    if ($netaccounts -like '*Never')
    {
@@ -36,7 +42,7 @@ try
    }
    else
    {
-      Write-Output 'Not enough memory'
+      Write-Output -InputObject 'Not enough memory'
 
       Exit 0
    }
@@ -44,8 +50,8 @@ try
    if (($REG_CREDG_value -ne '1') -or ($netaccounts_Value -eq '0') -or ($DeviceGuard -eq 'Disabled'))
    {
       # LSA protection
-      $null = (Remove-ItemProperty -Path $REG_CREDG -Name 'RunAsPPL' -Force -Confirm:$false -ErrorAction SilentlyContinue)
-      $null = (New-ItemProperty -Path $REG_CREDG -Name 'RunAsPPL' -Value '1' -PropertyType Dword -Force -Confirm:$false -ErrorAction Stop)
+      $null = (Remove-ItemProperty -Path $REG_CREDG -Name 'RunAsPPL' -Force -Confirm:$false -ErrorAction $SCT)
+      $null = (New-ItemProperty -Path $REG_CREDG -Name 'RunAsPPL' -Value '1' -PropertyType Dword -Force -Confirm:$false -ErrorAction $STP)
 
       # Set lockout threshold to 10
       $null = (net accounts /lockoutthreshold:10)
@@ -53,11 +59,11 @@ try
       #Enable Application guard if meet the minimum specs
       if ((((Get-ComputerInfo).OsTotalVisibleMemorySize) / 1024000) -gt '8')
       {
-         $null = (Enable-WindowsOptionalFeature -Online -FeatureName 'Windows-Defender-ApplicationGuard' -NoRestart -ErrorAction Stop -WarningAction SilentlyContinue)
+         $null = (Enable-WindowsOptionalFeature -Online -FeatureName 'Windows-Defender-ApplicationGuard' -NoRestart -ErrorAction $STP -WarningAction $SCT)
       }
       else
       {
-         Write-Output 'Not enough memory'
+         Write-Output -InputObject 'Not enough memory'
 
          Exit 0
       }
@@ -69,7 +75,7 @@ try
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STP
 
    Exit 1
 }

@@ -1,3 +1,4 @@
+
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
 if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
@@ -19,10 +20,10 @@ try
 {
    #LLSA protection
    $REG_CREDG = 'HKLM:SYSTEM\CurrentControlSet\Control\Lsa'
-   $REG_CREDG_value = (Get-ItemProperty -Path $REG_CREDG).RunAsPPL
+   $REG_CREDG_value = ((Get-ItemProperty -Path $REG_CREDG).RunAsPPL)
 
    # Set 'Account lockout threshold' to 1-10 invalid login attempts
-   $NetAccounts = (net accounts | Select-String 'lockout threshold')
+   $NetAccounts = (& "$env:windir\system32\net.exe" accounts | Select-String -Pattern 'lockout threshold')
 
    if ($netaccounts -like '*Never')
    {
@@ -32,11 +33,11 @@ try
    # Turn on Microsoft Defender Application Guard managed mode
    if (((Get-ComputerInfo).OsTotalVisibleMemorySize / 1024000) -gt '8')
    {
-      $DeviceGuard = (Get-WindowsOptionalFeature -Online -FeatureName Windows-Defender-ApplicationGuard).state
+      $DeviceGuard = ((Get-WindowsOptionalFeature -Online -FeatureName Windows-Defender-ApplicationGuard).state)
    }
    else
    {
-      Write-Output 'Not enough memory'
+      Write-Output -InputObject 'Not enough memory'
 
       Exit 0
    }
@@ -48,7 +49,7 @@ try
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction Stop
 
    Exit 1
 }

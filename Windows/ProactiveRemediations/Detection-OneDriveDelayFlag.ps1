@@ -1,4 +1,8 @@
-﻿#region ARM64Handling
+﻿#region
+$STP = 'Stop'
+#endregion
+
+#region ARM64Handling
 # Restart Process using PowerShell 64-bit
 if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 {
@@ -17,7 +21,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   $Registry = ((Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1' -Name 'Timerautomount' -ErrorAction Stop).Timerautomount)
+   $Registry = ((Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1' -Name 'Timerautomount' -ErrorAction $STP).Timerautomount)
 
    if ($Registry -eq 1)
    {
@@ -28,7 +32,7 @@ try
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STP
 
    Exit 1
 }

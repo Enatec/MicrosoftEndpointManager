@@ -1,5 +1,11 @@
 # Lock Screen Check
 
+#region Defaults
+$RegistryPath = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization'
+$SCT = 'SilentlyContinue'
+$STP = 'Stop'
+#endregion Defaults
+
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
 if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
@@ -19,29 +25,29 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   if (-not (Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath $RegistryPath -ErrorAction $STP))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenOverlaysDisabled' -ErrorAction SilentlyContinue) -eq 1))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'LockScreenOverlaysDisabled' -ErrorAction $SCT) -eq 1))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreen' -ErrorAction SilentlyContinue) -eq 1))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'NoLockScreen' -ErrorAction $SCT) -eq 1))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreenSlideshow' -ErrorAction SilentlyContinue) -eq 1))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'NoLockScreenSlideshow' -ErrorAction $SCT) -eq 1))
    {
       Exit 1
    }
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STP
 
    Exit 1
 }

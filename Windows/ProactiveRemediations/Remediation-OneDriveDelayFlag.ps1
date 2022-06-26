@@ -1,4 +1,8 @@
-﻿#region ARM64Handling
+﻿#region Defaults
+$STP = 'Stop'
+#endregion Defaults
+
+#region ARM64Handling
 # Restart Process using PowerShell 64-bit
 if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 {
@@ -17,11 +21,11 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   $null = (New-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1' -Name 'Timerautomount' -Type 'QWORD' -Value 1 -Force -Confirm:$false -ErrorAction Stop)
+   $null = (New-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1' -Name 'Timerautomount' -PropertyType 'QWORD' -Value 1 -Force -Confirm:$false -ErrorAction $STP)
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STP
 
    Exit 1
 }

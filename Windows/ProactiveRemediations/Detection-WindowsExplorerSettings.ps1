@@ -1,5 +1,11 @@
 # Check-WindowsExplorerSettings
 
+#region Defaults
+$RegistryPath = 'HKCU:\Software\Policies\Microsoft\Windows\Explorer'
+$SCT = 'SilentlyContinue'
+$STOP = 'Stop'
+#endregion Defaults
+
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
 if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
@@ -19,44 +25,44 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 
 try
 {
-   if (-not (Test-Path -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -ErrorAction Stop))
+   if (-not (Test-Path -LiteralPath $RegistryPath -ErrorAction $STOP))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'AddSearchInternetLinkInStartMenu' -ErrorAction SilentlyContinue) -eq 0))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'AddSearchInternetLinkInStartMenu' -ErrorAction $SCT) -eq 0))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'GoToDesktopOnSignIn' -ErrorAction SilentlyContinue) -eq 1))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'GoToDesktopOnSignIn' -ErrorAction $SCT) -eq 1))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoStartMenuHomegroup' -ErrorAction SilentlyContinue) -eq 1))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'NoStartMenuHomegroup' -ErrorAction $SCT) -eq 1))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoStartMenuRecordedTV' -ErrorAction SilentlyContinue) -eq 1))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'NoStartMenuRecordedTV' -ErrorAction $SCT) -eq 1))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'ShowRunAsDifferentUserInStart' -ErrorAction SilentlyContinue) -eq 1))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'ShowRunAsDifferentUserInStart' -ErrorAction $SCT) -eq 1))
    {
       Exit 1
    }
 
-   if (-not ((Get-ItemPropertyValue -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableSearchBoxSuggestions' -ErrorAction SilentlyContinue) -eq 1))
+   if (-not ((Get-ItemPropertyValue -LiteralPath $RegistryPath -Name 'DisableSearchBoxSuggestions' -ErrorAction $SCT) -eq 1))
    {
       Exit 1
    }
 }
 catch
 {
-   Write-Error $_ -ErrorAction Stop
+   Write-Error -Message $_ -ErrorAction $STOP
 
    Exit 1
 }

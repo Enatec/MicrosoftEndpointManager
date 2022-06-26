@@ -1,3 +1,5 @@
+
+
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
 if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
@@ -15,6 +17,7 @@ if ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 }
 #endregion ARM64Handling
 
+#region Defaults
 $RegistryPath = 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate'
 $Channel = @(
    'Update{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}'
@@ -22,6 +25,8 @@ $Channel = @(
    'Update{65C35B14-6C1D-4122-AC46-7148CC9D6497}'
    'Update{0D50BFEC-CD6A-4F9A-964C-C7416E3ACB10}'
 )
+$STP = 'Stop'
+#endregion Defaults
 
 $Channel | ForEach-Object {
    if (Get-ItemProperty -Path $RegistryPath -Name $PSItem -ErrorAction SilentlyContinue)
@@ -37,17 +42,17 @@ $Channel | ForEach-Object {
    {
       if ($RegistryName)
       {
-         $Registry = (Get-ItemProperty -Path $RegistryPath -Name $RegistryName -ErrorAction Stop | Select-Object -ExpandProperty $RegistryName)
+         $Registry = (Get-ItemProperty -Path $RegistryPath -Name $RegistryName -ErrorAction $STP | Select-Object -ExpandProperty $RegistryName)
 
          if (-not ($Registry -eq 1))
          {
-            $null = (Set-ItemProperty -Path $RegistryPath -Name $RegistryName -Type'DWORD' -Value 1 -Force -Confirm -ErrorAction Stop)
+            $null = (New-ItemProperty -Path $RegistryPath -Name $RegistryName -PropertyType 'DWORD' -Value 1 -Force -Confirm -ErrorAction $STP)
          }
       }
    }
    catch
    {
-      Write-Error $_ -ErrorAction Stop
+      Write-Error -Message $_ -ErrorAction $STP
 
       Exit 1
    }
