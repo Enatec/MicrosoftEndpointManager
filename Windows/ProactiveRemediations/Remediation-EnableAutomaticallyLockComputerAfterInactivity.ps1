@@ -1,4 +1,4 @@
-﻿# Enable Automatically Lock Computer after Inactivity
+# Enable Automatically Lock Computer after Inactivity
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit

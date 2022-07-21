@@ -1,4 +1,4 @@
-﻿# L2TP behind NAT on a Windows 10/11 client
+# L2TP behind NAT on a Windows 10/11 client
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit

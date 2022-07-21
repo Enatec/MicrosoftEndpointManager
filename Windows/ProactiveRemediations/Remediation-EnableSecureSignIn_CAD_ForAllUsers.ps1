@@ -1,4 +1,4 @@
-﻿# Enable Secure Sign-in (Ctrl+Alt+Del) for all users
+# Enable Secure Sign-in (Ctrl+Alt+Del) for all users
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit

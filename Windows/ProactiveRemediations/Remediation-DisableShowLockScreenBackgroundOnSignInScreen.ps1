@@ -1,4 +1,4 @@
-﻿# Disable Show Lock Screen Background on Sign-in Screen
+# Disable Show Lock Screen Background on Sign-in Screen
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit

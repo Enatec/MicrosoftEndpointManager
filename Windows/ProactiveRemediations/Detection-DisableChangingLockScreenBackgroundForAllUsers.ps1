@@ -1,4 +1,4 @@
-﻿# Disable Changing Lock Screen Background for All Users
+# Disable Changing Lock Screen Background for All Users
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit

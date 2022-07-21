@@ -1,4 +1,4 @@
-﻿# Do Not Display Last Username On Sign-in
+# Do Not Display Last Username On Sign-in
 
 #region ARM64Handling
 # Restart Process using PowerShell 64-bit
