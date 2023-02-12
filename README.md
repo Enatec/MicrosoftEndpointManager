@@ -4,6 +4,8 @@ All Microsoft Endpoint Manager related stuff.
 
 We will not provide any binary files and/or installers to prevent any licensing issues. You should be able to download the Files from the vendor, or use Google to find the binary files and/or installers referenced in the installer/setup script.
 
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Enatec&repo=MicrosoftEndpointManager&theme=transparent)](https://github.com/Enatec/MicrosoftEndpointManager)
+
 ## Found a bug or Issue?
 
 If you find something bad (like a bug, error, or any issue), please report it here by open an [Issue](https://github.com/Enatec/MicrosoftEndpointManager/issues).
