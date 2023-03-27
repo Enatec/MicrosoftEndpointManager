@@ -8,8 +8,8 @@ Some might not be up-to-date, but still will do the trick!
 
 Due to the actual license changes from Microsoft for proactive remediation, we decided to freeze the development of the scripts.
 
-![remediations_lic1.png](images\remediations_lic1.png)
+![remediations_lic1.png](images/remediations_lic1.png)
 
-![remediations_lic2.png](images\remediations_lic2.png)
+![remediations_lic2.png](images/remediations_lic2.png)
 
 Most of our customers don't have the proper licenses, it makes no sense!
