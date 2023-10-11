@@ -20,7 +20,7 @@ If ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 $null = (Stop-Process -Name Folge -Force -Confirm:$false -ErrorAction SilentlyContinue)
 
 # Uninstall Folge
-$null = (Start-Process -FilePath "$env:ProgramW6432\Folge\Uninstall Folge.exe" -Wait -ArgumentList '/allusers /S')
+$null = (Start-Process -FilePath "$env:ProgramW6432\Folge\Uninstall Folge.exe" -Wait -ArgumentList '/allusers /S' -ErrorAction Stop)
 
 # Cleanup
 $DesktopIcon = "$env:PUBLIC\Desktop\Folge.lnk"

@@ -20,7 +20,7 @@ If ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 $null = (Stop-Process -Name Folge -Force -Confirm:$false -ErrorAction SilentlyContinue)
 
 # Install Folge
-$null = (Start-Process -FilePath .\Folge-1.16.1.exe -Wait -ArgumentList '/S /allusers')
+$null = (Start-Process -FilePath .\Folge-1.16.1.exe -Wait -ArgumentList '/S /allusers' -ErrorAction Stop)
 
 $DesktopIcon = "$env:PUBLIC\Desktop\Folge.lnk"
 
