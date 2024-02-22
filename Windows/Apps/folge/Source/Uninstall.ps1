@@ -1,4 +1,4 @@
-# 1.16.1
+# 1.17.0
 # https://folge.me/help/guide/hints/windows-installer-flags.html
 
 # Restart Process using PowerShell 64-bit

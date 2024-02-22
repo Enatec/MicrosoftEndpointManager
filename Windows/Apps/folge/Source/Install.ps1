@@ -1,4 +1,4 @@
-# 1.16.1
+# 1.17.0
 # https://folge.me/help/guide/hints/windows-installer-flags.html
 
 # Restart Process using PowerShell 64-bit
@@ -20,7 +20,7 @@ If ($ENV:PROCESSOR_ARCHITEW6432 -eq 'AMD64')
 $null = (Stop-Process -Name Folge -Force -Confirm:$false -ErrorAction SilentlyContinue)
 
 # Install Folge
-$null = (Start-Process -FilePath .\Folge-1.16.1.exe -Wait -ArgumentList '/S /allusers' -ErrorAction Stop)
+$null = (Start-Process -FilePath .\Folge-1.17.0.exe -Wait -ArgumentList '/S /allusers' -ErrorAction Stop)
 
 $DesktopIcon = "$env:PUBLIC\Desktop\Folge.lnk"
 
