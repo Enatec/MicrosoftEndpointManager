@@ -17,6 +17,8 @@ if ((Test-Path @paramTestPath ) -ne $true)
    $null = (New-Item @paramNewItem)
 }
 
+# Chrome policy: 1 = Disable local foundational model downloads/usage for on-device GenAI features.
+# Reference: https://chromeenterprise.google/policies/#GenAILocalFoundationalModelSettings
 $paramNewItemProperty = @{
    LiteralPath  = $RegPath
    Name         = 'GenAILocalFoundationalModelSettings'
