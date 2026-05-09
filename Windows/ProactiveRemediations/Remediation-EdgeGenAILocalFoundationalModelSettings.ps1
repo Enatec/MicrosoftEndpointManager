@@ -17,6 +17,8 @@ if ((Test-Path @paramTestPath ) -ne $true)
    $null = (New-Item @paramNewItem)
 }
 
+# Microsoft Edge policy: 1 = prevent local foundational model installation/downloads.
+# Reference: https://learn.microsoft.com/deployedge/microsoft-edge-policies#genailocalfoundationalmodelsettings
 $paramNewItemProperty = @{
    LiteralPath  = $RegPath
    Name         = 'GenAILocalFoundationalModelSettings'
