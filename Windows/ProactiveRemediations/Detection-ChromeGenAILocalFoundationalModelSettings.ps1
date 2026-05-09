@@ -14,6 +14,10 @@ try
       exit 1
    }
    
+   # Chrome policy: GenAILocalFoundationalModelSettings
+   # Expected values are documented by Google Chrome Enterprise policy docs:
+   # https://chromeenterprise.google/policies/#GenAILocalFoundationalModelSettings
+   # This detection treats a value of 1 as the compliant state (local foundational model disabled / prevented from reinstalling).
    $paramGetItemPropertyValue = @{
       LiteralPath = $RegPath
       Name        = 'GenAILocalFoundationalModelSettings'
