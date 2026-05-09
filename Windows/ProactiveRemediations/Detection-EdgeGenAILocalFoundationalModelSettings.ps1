@@ -18,7 +18,7 @@ try
    # This detection expects the policy value to be 1, which represents the
    # managed state that prevents the local foundational model from being used
    # or reinstalled. See the Edge policy reference for the supported values:
-   # https://learn.microsoft.com/en-us/deployedge/microsoft-edge-browser-policies/genailocalfoundationalmodelsettings
+   # https://learn.microsoft.com/deployedge/microsoft-edge-browser-policies/genailocalfoundationalmodelsettings
    $paramGetItemPropertyValue = @{
       LiteralPath = $RegPath
       Name        = 'GenAILocalFoundationalModelSettings'
